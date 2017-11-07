@@ -41,3 +41,36 @@ connection.end(function (err) {
     }
     console.log("[connection end] succeed!!!");
 })
+
+function connectServer() {
+    var client = mysql.createConnection({
+        host: 'localhost',
+        port: '3306',
+        user: "root",
+        password: "123456",
+        database: "db_jvt"
+    })
+    return client;
+}
+
+function selectFun(client, username, callback) {
+    //client为一个mysql连接对象
+    client.query('SELECT password FROM user_info where username="' + username + '"', function (err, results, fields) {
+        if (err) throw err;
+        callback(results);
+    });
+}
+
+function insertFun(client, username, password, callback) {
+    client.query('insert into user_info(id,username,password) value(?,?)', ["nnwejoimmlasd", username, password], function (err, result) {
+        if (err) {
+            console.log("error:" + err.message);
+            return err;
+        }
+        callback(err);
+    });
+}
+
+exports.connect = connectServer;
+exports.select = selectFun;
+exports.insert = insertFun;

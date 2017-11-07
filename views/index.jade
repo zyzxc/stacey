@@ -1,11 +1,22 @@
 extends layout
 
+link(rel="stylesheet" href="/stylesheets/index.css")
+
 block content
-.content
     h1= title
     p Welcome to #{title}
-ul
-    for user in users
-        li= user
-    else
-        li sorry, no user!
+    a#mainPage(href='/') 主页
+    a#loginBtn(href='/login',style='margin-left:10px;') 登录
+    a#regBtn(href='/register',style='margin-left:10px;') 注册
+    .layout
+        .content
+            table.ttable
+                thead
+                    tr
+                        th
+                            a(style='text-decoration:none') 用户编码
+                        th
+                            a(style='text-decoration:none') 用户名
+                        th
+                            a(style='text-decoration:none') 邮箱
+                tbody

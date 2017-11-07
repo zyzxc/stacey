@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    h1= title
+    .content
+        form(method='post')
+            .wrapper
+                .input-box
+                    label.input-label 用户名：
+                    input.input-text(type="text", name="username",placeholder='请输入用户名...')
+                .input-box
+                    label.input-label 密码：
+                    input.input-text(type="password", name="password",placeholder='请输入密码...')
+                .input-box
+                    label.input-label 重复密码：
+                    input.input-text(type="password", name="repwd",placeholder='请输入重复密码...')
+            .submitBtn
+                input#regBtn.login(type='submit',value='注册')
+            #container
+                span
+    script(type='text/javascript').
+        $("#regBtn").click(function () {
+            var username = $("input[name='username']").val();
+            var password = $("input[name='password']").val();
+            var repwd = $("input[name='repwd']").val();
+            if (username.length == 0) {
+                $("#container span").text('用户名不能为空');
+                $("input[name='username']").focus();
+                return false;
+            }
+            if (password.length == 0) {
+                $("#container span").text('密码不能为空');
+                $("input[name='password']").focus();
+                return false;
+            }
+            if (repwd.length == 0) {
+                $("#container span").text('重复密码不能为空');
+                $("input[name='repwd']").focus();
+                return false;
+            }
+            if (password != repwd) {
+                $("#container span").text('两次密码不一致');
+                $("input[name='password']").focus();
+                return false;
+            }
+            return true;
+        })
